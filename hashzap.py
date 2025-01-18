@@ -42,15 +42,16 @@ def main(pagina):
     pagina.pubsub.subscribe(enviar_mensagem_tunel)
 
     # 3 enviar mensagem
-    pagina.pubsub.sendall()
+    #linha 53
 
     # criar chat
     
     def enviar_mensagem(evento):
         nome_usuario = caixa_nome.value
-        mensagem = f"{nome_usuario}: {texto_campo_mensagem}"
         texto_campo_mensagem = campo_enviar_mensagem.value
-        
+        mensagem = f"{nome_usuario}: {texto_campo_mensagem}"
+
+        pagina.pubsub.send_all(mensagem)
         # limpar chat e atualizar
         campo_enviar_mensagem.value = ""
         pagina.update()
@@ -76,8 +77,8 @@ def main(pagina):
 
         # adcionar no chat mensagem "Fulano entrou no chat"
         nome_usuario = caixa_nome.value
-        texto_mensagem = ft.Text(f"{nome_usuario} entrou no chat")
-        chat.controls.append(texto_mensagem)
+        mensagem = f"{nome_usuario} entrou no chat"
+        pagina.pubsub.send_all(mensagem)
         pagina.update()
 
     # criar popup
