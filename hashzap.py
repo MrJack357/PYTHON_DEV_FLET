@@ -27,6 +27,8 @@ def main(pagina):
     campo_enviar_mensagem = ft.TextField(label="Escreva sua mensagem")
     botao_enviar = ft.ElevatedButton("Enviar")
 
+    #
+
     # função para entrar no chat
     def entrar_chat(evento):
         # fechar popup
