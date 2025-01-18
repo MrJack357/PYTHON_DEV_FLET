@@ -14,6 +14,10 @@
 
 # Flet 
 # importar o flet
+
+#Fazer depois a aula de Datetime Hashtag
+
+
 import flet as ft
 
 # criar uma função para a rodar o seu app
@@ -24,10 +28,18 @@ def main(pagina):
     titulo = ft.Text('Hashzap')
 
     # criar chat
-    campo_enviar_mensagem = ft.TextField(label="Escreva sua mensagem")
-    botao_enviar = ft.ElevatedButton("Enviar")
+    
+    def enviar_mensagem(evento):
+        texto = ft.Text(campo_enviar_mensagem.value)
+        chat.controls.append(texto)
+        pagina.update()
 
-    #
+    
+    campo_enviar_mensagem = ft.TextField(label="Escreva sua mensagem", on_submit=enviar_mensagem)
+    botao_enviar = ft.ElevatedButton("Enviar", on_click=enviar_mensagem)
+    linha_enviar = ft.Row([campo_enviar_mensagem, botao_enviar])
+
+    chat = ft.Column()
 
     # função para entrar no chat
     def entrar_chat(evento):
@@ -37,10 +49,9 @@ def main(pagina):
         pagina.remove(titulo)
         pagina.remove(botao)
         # criar chat
-        # carregar campo de texto
-        pagina.add(campo_enviar_mensagem)
-        # botão enviar
-        pagina.add(botao_enviar)
+        pagina.add(chat)
+        # carregar campo de texto e botao
+        pagina.add(linha_enviar)
 
     pagina.update()
 
