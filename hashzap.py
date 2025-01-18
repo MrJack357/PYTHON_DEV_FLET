@@ -27,14 +27,30 @@ def main(pagina):
     # titulo
     titulo = ft.Text('Hashzap')
 
+
+    #criar tunel de conexão entre usuarios
+
+    # 1  criar funçao de mensagem por tunel
+    def enviar_mensagem_tunel(mensagem):
+        # executar tudo que aconteça aqui
+        # para todos os usuarios simultaneamente
+        texto = ft.Text(mensagem)
+        chat.controls.append(texto)
+        pagina.update()
+
+    # 2 criar tunel com conteudo da mensagem
+    pagina.pubsub.subscribe(enviar_mensagem_tunel)
+
+    # 3 enviar mensagem
+    pagina.pubsub.sendall()
+
     # criar chat
     
     def enviar_mensagem(evento):
         nome_usuario = caixa_nome.value
+        mensagem = f"{nome_usuario}: {texto_campo_mensagem}"
         texto_campo_mensagem = campo_enviar_mensagem.value
-        texto = ft.Text(f"{nome_usuario}: {texto_campo_mensagem}")
-        chat.controls.append(texto)
-
+        
         # limpar chat e atualizar
         campo_enviar_mensagem.value = ""
         pagina.update()
