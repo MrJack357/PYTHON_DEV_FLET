@@ -22,8 +22,40 @@ def main(pagina):
 
     # titulo
     titulo = ft.Text('Hashzap')
+
+    # criar chat
+    campo_enviar_mensagem = ft.TextField(label="Escreva sua mensagem")
+    botao_enviar = ft.ElevatedButton("Enviar")
+
+    # função para entrar no chat
+    def entrar_chat(evento):
+        # fechar popup
+        popup.open = False
+        #sumir com o titulo e botão
+        pagina.remove(titulo)
+        pagina.remove(botao)
+        # criar chat
+        # carregar campo de texto
+        pagina.add(campo_enviar_mensagem)
+        # botão enviar
+        pagina.add(botao_enviar)
+
+    pagina.update()
+
+    # criar popup
+    titulo_popup =  ft.Text("Bem vindo ao Hashzap")
+    caixa_nome = ft.TextField(label="Digite seu nome")
+    botao_popup = ft.ElevatedButton("Entrar no chat", on_click=entrar_chat)
+
+    popup =  ft.AlertDialog(title= titulo_popup, content= caixa_nome, actions=[botao_popup])
+
     # botão de iniciar chat
-    botao = ft.ElevatedButton("Iniciar Chat")
+    def abrir_popup(evento):
+        pagina.dialog = popup
+        popup.open = True
+        pagina.update()
+
+    botao = ft.ElevatedButton("Iniciar Chat", on_click=abrir_popup)
     
     # colocar os elementos na página
     pagina.add(titulo)
