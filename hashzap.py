@@ -30,8 +30,13 @@ def main(pagina):
     # criar chat
     
     def enviar_mensagem(evento):
-        texto = ft.Text(campo_enviar_mensagem.value)
+        nome_usuario = caixa_nome.value
+        texto_campo_mensagem = campo_enviar_mensagem.value
+        texto = ft.Text(f"{nome_usuario}: {texto_campo_mensagem}")
         chat.controls.append(texto)
+
+        # limpar chat e atualizar
+        campo_enviar_mensagem.value = ""
         pagina.update()
 
     
@@ -53,11 +58,15 @@ def main(pagina):
         # carregar campo de texto e botao
         pagina.add(linha_enviar)
 
-    pagina.update()
+        # adcionar no chat mensagem "Fulano entrou no chat"
+        nome_usuario = caixa_nome.value
+        texto_mensagem = ft.Text(f"{nome_usuario} entrou no chat")
+        chat.controls.append(texto_mensagem)
+        pagina.update()
 
     # criar popup
     titulo_popup =  ft.Text("Bem vindo ao Hashzap")
-    caixa_nome = ft.TextField(label="Digite seu nome")
+    caixa_nome = ft.TextField(label="Digite seu nome", on_submit= entrar_chat)
     botao_popup = ft.ElevatedButton("Entrar no chat", on_click=entrar_chat)
 
     popup =  ft.AlertDialog(title= titulo_popup, content= caixa_nome, actions=[botao_popup])
